@@ -1,65 +1,62 @@
-const names = 'nmnmmn'
-console.log(names);
+
 const apiKey = 'live_7aU1ucXbT2AtrrxSveghwyabcqoIkIWOcggbm3JdkgSkkfWThJcg2HDSTJql2Xij';
 const apiUrl = 'https://api.thecatapi.com/v1/breeds';
-console.log(apiKey);
-const getCatBreeds = async () => {
+const limit = 9;
+let page = 1;
+
+const container = document.querySelector('.js-container')
+const btnLoadMore = document.querySelector('.js-btn');
+const input = document.querySelector('.js-input')
+console.log(input.currentTarget);
+
+async function getCatBreeds() {
     try {
-        const response = await fetch(apiUrl, {
-            headers: { 'x-api-key': apiKey }
+        const response = await fetch(`${apiUrl}?limit=${limit}&page=${page}`, {
+            headers: {
+                'x-api-key': apiKey
+            }
         });
-
         if (!response.ok) {
-            throw new Error(`HTTP Error! Status: ${response.status}`);
+            throw new Error(response.statusText || 'Error')
         }
-
         const breeds = await response.json();
         console.log(breeds);
-        displayBreeds(breeds); // Call function to display breeds
+    container.insertAdjacentHTML("beforeend", createMarkUp(breeds))
+            if (breeds.length < limit) {
+            btnLoadMore.style.display = 'none';
+        }
+        
     } catch (error) {
-        console.error('Error fetching cat breeds:', error);
+       console.log(error); 
     }
-};
+}
+function createMarkUp(date) {
+    return date.map(({ description, name, temperament, origin, life_span, image }) => {
+        const imageId = image?.id || 'default';
+        const imageUrl = image?.url || './images/image.jpg';
+        return `<li class="breed-item" data-id="${imageId}">
+            <img class="breed-img" src="${imageUrl}" alt="${name}" />
+            <div>
+                <h2 class= "title-text"> ${name}</h2>
+                <p class="descr-point"><span class="title-subtext">Country of origin:</span> ${origin}</p>
+                <p class="descr-point"><span class="title-subtext">Life expectancy:</span> ${life_span}</p>
+                <p class="descr-point"><span class="title-subtext">Temperament:</span> ${temperament}</p>
+                <p class="descr-point"><span class="title-subtext">Description:</span> ${description}</p>
+            </div>
+        </li>`;
+    }).join('');
+}
+getCatBreeds();
 
-// Function to display breeds in a list
-const displayBreeds = (breeds) => {
-    const breedList = document.getElementsByClassName('.js-container');
-    breedList.innerHTML = ''; // Clear previous list
+btnLoadMore.addEventListener('click', () => {
+    page++; 
+    getCatBreeds(); 
+});
 
-    breeds.forEach(breed => {
-        const listItem = document.createElement('li');
-        listItem.textContent = breed.name;
-        breedList.appendChild(listItem);
-    });
-};
 
-// Function to fetch images of a specific breed
-const getBreedImages = async (breedId) => {
-    const imageUrl = `https://api.thecatapi.com/v1/images/search?limit=5&breed_ids=${breedId}&api_key=${apiKey}`;
+input.addEventListener('input', searchCard)
 
-    try {
-        const response = await fetch(imageUrl);
-        const images = await response.json();
-        displayBreedImages(images);
-    } catch (error) {
-        console.error('Error fetching breed images:', error);
-    }
-};
-
-// Function to display breed images
-const displayBreedImages = (images) => {
-    const imageContainer = document.getElementById('image-container');
-    imageContainer.innerHTML = ''; // Clear previous images
-
-    images.forEach(img => {
-        const imgElement = document.createElement('img');
-        imgElement.src = img.url;
-        imgElement.alt = 'Cat Image';
-        imgElement.style.width = '200px';
-        imgElement.style.margin = '10px';
-        imageContainer.appendChild(imgElement);
-    });
-};
-
-// Load breeds when the page is ready
-document.addEventListener('DOMContentLoaded', getCatBreeds);
+function searchCard() {
+    searchValue = input.value
+    console.log(searchValue);
+}
