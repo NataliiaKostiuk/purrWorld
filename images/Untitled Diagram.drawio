@@ -349,6 +349,12 @@
             <mxPoint x="40" y="1120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="s-86lNggb5E37lJMLKwk-1" value="My family" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="305" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="s-86lNggb5E37lJMLKwk-2" value="Where I live now" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="375" width="120" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
