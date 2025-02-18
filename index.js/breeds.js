@@ -1,43 +1,52 @@
 
+
 const apiKey = 'live_7aU1ucXbT2AtrrxSveghwyabcqoIkIWOcggbm3JdkgSkkfWThJcg2HDSTJql2Xij';
 const apiUrl = 'https://api.thecatapi.com/v1/breeds';
-const limit = 9;
-let page = 1;
 
-const container = document.querySelector('.js-container')
+let breeds = []; 
+let displayedBreeds = [];
+const limit = 8;
+let page = 1;
+let isSearching = false; 
+
+const container = document.querySelector('.js-container');
 const btnLoadMore = document.querySelector('.js-btn');
-const input = document.querySelector('.js-input')
-console.log(input.currentTarget);
+const input = document.querySelector('.js-input');
 
 async function getCatBreeds() {
     try {
-        const response = await fetch(`${apiUrl}?limit=${limit}&page=${page}`, {
-            headers: {
-                'x-api-key': apiKey
-            }
+        const response = await fetch(apiUrl, {
+            headers: { 'x-api-key': apiKey }
         });
+
         if (!response.ok) {
-            throw new Error(response.statusText || 'Error')
+            throw new Error(response.statusText || 'Error');
         }
-        const breeds = await response.json();
-        console.log(breeds);
-    container.insertAdjacentHTML("beforeend", createMarkUp(breeds))
-            if (breeds.length < limit) {
-            btnLoadMore.style.display = 'none';
-        }
-        
+        breeds = await response.json(); 
+        resetBreeds(breeds); 
     } catch (error) {
-       console.log(error); 
+        console.log(error);
     }
 }
-function createMarkUp(date) {
-    return date.map(({ description, name, temperament, origin, life_span, image }) => {
-        const imageId = image?.id || 'default';
+
+
+function renderBreeds(data) {
+    container.innerHTML = createMarkUp(data);
+    if (isSearching || displayedBreeds.length >= breeds.length) {
+        btnLoadMore.style.display = 'none';
+    } else {
+        btnLoadMore.style.display = 'block';
+    }
+}
+
+function createMarkUp(data) {
+    return data.map(({ description, name, temperament, origin, life_span, image }) => {
         const imageUrl = image?.url || './images/image.jpg';
-        return `<li class="breed-item" data-id="${imageId}">
+
+        return `<li class="breed-item">
             <img class="breed-img" src="${imageUrl}" alt="${name}" />
             <div>
-                <h2 class= "title-text"> ${name}</h2>
+                <h2 class="title-text">${name}</h2>
                 <p class="descr-point"><span class="title-subtext">Country of origin:</span> ${origin}</p>
                 <p class="descr-point"><span class="title-subtext">Life expectancy:</span> ${life_span}</p>
                 <p class="descr-point"><span class="title-subtext">Temperament:</span> ${temperament}</p>
@@ -46,17 +55,36 @@ function createMarkUp(date) {
         </li>`;
     }).join('');
 }
-getCatBreeds();
+
+function resetBreeds() {
+    page = 1;
+    displayedBreeds = breeds.slice(0, limit);
+    isSearching = false; 
+    renderBreeds(displayedBreeds);
+}
 
 btnLoadMore.addEventListener('click', () => {
-    page++; 
-    getCatBreeds(); 
+    if (isSearching) return; 
+
+    const nextBreeds = breeds.slice(page * limit, (page + 1) * limit);
+    displayedBreeds = [...displayedBreeds, ...nextBreeds];
+    page++;
+    renderBreeds(displayedBreeds);
 });
 
 
-input.addEventListener('input', searchCard)
+input.addEventListener('input', () => {
+    const searchValue = input.value.toLowerCase().trim();
 
-function searchCard() {
-    searchValue = input.value
-    console.log(searchValue);
-}
+    if (searchValue === '') {
+        resetBreeds(); 
+    } else {
+        isSearching = true;
+        displayedBreeds = breeds.filter(({ name }) =>
+            name.toLowerCase().includes(searchValue)
+        );
+        renderBreeds(displayedBreeds);
+    }
+});
+
+getCatBreeds(); 

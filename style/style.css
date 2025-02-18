@@ -1,7 +1,12 @@
+
+
+
 *{
   margin: 0;
   box-sizing: border-box;
-  font-family: "Monserrat";
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 ul{
   list-style: none;
@@ -19,8 +24,10 @@ img {
   margin: 0 auto;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: rgb(248, 242, 240);
-  max-width: 1440px;
+  /* background-color: rgb(247, 181, 123); */
+  width: 1440px;
+    background-image: url(../images/tggs-cat-lover-paper.jpg);
+      /* background-size: cover; */
 
 }
 /* header */
@@ -33,6 +40,9 @@ img {
   border:1px solid #F07F2E;
   margin-right: 10px;
 }
+.logo-title{
+  font-style: italic;
+}
 .logo-link{
   margin-right: 50px;
   color:#491f02;
@@ -44,12 +54,12 @@ letter-spacing: 0.04em;
 display: flex;
 align-items: center;
 }
-.header {
+.header { 
   display: flex;
   justify-items: center;
   align-items: center;
   width: 100%;
-  background-color: rgb(248, 242, 240);
+  background-color: rgb(226, 171, 123);
   background-image:
   linear-gradient(rgba(243, 238, 238, 0.6), rgba(252, 213, 213, 0.6));
 }
@@ -63,19 +73,21 @@ align-items: center;
   gap: 30px;
 }
 .nav-link{
-color:#F07F2E;
+color:#a11441;
 font-weight: 700;
 font-size: 24px;
 line-height: 1.11;
 letter-spacing: 0.03em;
-transition: color 1250ms cubic-bezier(0.4, 0, 0.2, 1)
+transition: color 1250ms cubic-bezier(0.4, 0, 0.2, 1),
+text-shadow 1250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .nav-link:hover,
 .nav-link:focus {
-  color:#30040f
+  color:#490818;
+  text-shadow: 1px 1px 1px;
 }
 .active-page{
-color: #30040f
+color: #490818;
 }
 /* section hero */
 .hero-section{
@@ -84,7 +96,7 @@ color: #30040f
   margin-right: auto;
   position: relative;
   margin-top: 7px;
-  height: 600px;
+  height: 500px;
   background-image:
   linear-gradient(rgba(247, 245, 244, 0.1), rgba(46, 47, 66, 0.7)),
   url(../images/picture\ 2.jpg); 
@@ -93,7 +105,7 @@ color: #30040f
   background-size: cover;
 }
 .hero-title{
-  color:#F07F2E;
+  color:#490818;
 font-weight: 900;
 font-size: 45px;
 line-height: 1.31;
@@ -103,17 +115,61 @@ top: 15%;
 right: 25px;
 }
 /* section facts */
+.facts-section{
+  display: flex;
+  gap: 10px;
+  margin-top: 7px;
+}
 .facts-container{
   display: flex;
   gap: 20px;
-  border:1px solid #F07F2E;
-  margin-top: 7px;
+  
   padding-right: 15px;
+  width: 1050px;
+  margin-bottom: 7px;
 
 }
+.text-wrap{
+  background-image: linear-gradient(rgba(243, 240, 238, 0.6), rgba(252, 213, 213, 0.6));
+  border: 1px solid #490818;
+  padding: 10px;
+}
+.contact-side{
+background-color: rgb(242, 226, 212);
+border: 1px solid #490818;
+width: 400px;
+height: 1622px;
+padding: 18px;
+}
+.contact-container{
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  margin-left: 20px;
+}
+
+.link-contact{
+  color: #6b1e14;
+    font-weight: 400;
+    font-size: 26px;
+    margin-left: 15px;
+    transition: text-shadow 1250ms cubic-bezier(0.4, 0, 0.2, 1);
+   }
+.link-contact:hover,
+.link-contact:focus{
+ text-shadow: 1px 1px 1px;
+}  
+.icon-container{
+  display: flex;
+  align-items: center;
+}
+.icon-svg{
+width: 40px; 
+height: 40px;
+}
 .facts-img{
-  width: 800px;
-  height: 450px;
+  width: 550px;
+  height: 400px;
 }
 .facts-subtitle{
   color:#491f02;
@@ -122,12 +178,31 @@ right: 25px;
   line-height: 1.31;
   letter-spacing: 0.04em;
   margin-bottom: 12px;
+
+}
+.contact-title {
+  margin-bottom: 35px;
+  margin-top: 30px;
+  margin-left: 15px;
+}
+.volontering-title{
+    color: #491f02;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1.31;
+      letter-spacing: 0.04em;
+   margin-top: 50px;
+   margin-left: 15px;
+}
+.volontering{
+  padding: 15px;
+
 }
 .facts-img-container{
   position: relative;
 }
 .transition-container{
-  width: 800px;
+  width: 550px;
   height: 125px;
   background-image: 
   linear-gradient(rgba(243, 238, 238, 0.6), rgba(252, 213, 213, 0.6));
@@ -135,31 +210,37 @@ right: 25px;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 72%;
+  top: 69%;
 }
 .text{
   text-align: justify;
   font-weight: 400;
-  font-size: 26px;
-  margin-top: auto;
-  padding-bottom: 80px;
+  font-size: 22px;
+  padding-top: 28px;
 }
 .text-link{
-  color: #F07F2E;
-  transition: color 1250ms cubic-bezier(0.4, 0, 0.2, 1)
+  color: #6b1e14;
+  transition: color 1250ms cubic-bezier(0.4, 0, 0.2, 1),
+ text-shadow 1250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .text-link:hover,
 .text-link:focus{
   color:#30040f;
+  text-shadow: 1px 1px 1px;
+}
+.text-contacts{
+  font-weight: 400;
+  font-size: 20px;
+  text-align: justify;
+  
 }
 .video-container{
-  border:1px solid #F07F2E;
   margin-top: 7px;
 }
 /* footer */
 .footer {
   margin-top: 7px;
-  background-color: #491f02;
+  background-color: #6b1e14;
   color: #fff;
   text-align: center;
 }
@@ -232,7 +313,7 @@ padding-right: 20px;
   height: 60px;
   font-size: 20px;
   padding: 10px;
-  border: 2px solid #F07F2E;
+  border: 2px solid #490818;
   border-radius: 10px;
   outline: none;
   transition: border-color 1250ms cubic-bezier(0.4, 0, 0.2, 1)
@@ -244,7 +325,7 @@ padding-right: 20px;
 
 .breed-input:focus {
   border-color: #491f02;
-  box-shadow: 0 0 10px #F07F2E; 
+  box-shadow: 0 0 10px #490818; 
 }
 
 /* ===Breeds card=== */
@@ -256,13 +337,14 @@ padding-right: 20px;
   justify-content: center;
 }
 .breed-item{
-  width: 460px;
-  border: 1px solid #F07F2E ;
+  width: 340px;
+  border: 1px solid #490818 ;
   padding: 10px;
+  background-color: rgb(242, 226, 212);
 
 }
 .breed-img{
-  width: 440px;
+  width: 320px;
   height: 400px;
 
 }
@@ -287,17 +369,9 @@ color: #30040f;
       font-weight: 400;
       color: #491f02;
 }
-/* .button-loadmore{
-  background-color: #30040f;
-  color: #F07F2E;
-  width: 80px;
-  height: 30px;
-  border-radius: 5%;
-  margin: 0 auto;
-} */
  .button-loadmore {
-   background-color: #30040f;
-   color: #F07F2E;
+   background-color: #490818;
+   color: #fff;
    width: 120px;
    height: 50px;
    border-radius: 5%;
@@ -309,9 +383,11 @@ color: #30040f;
    cursor: pointer;
    border: none;
    outline: none;
-   transition: background-color 1250ms cubic-bezier(0.4, 0, 0.2, 1);
+   transition: background-color 1250ms cubic-bezier(0.4, 0, 0.2, 1),
+width 1250ms cubic-bezier(0.4, 0, 0.2, 1) ;
  }
 
  .button-loadmore:hover {
-   background-color: #45101b;
+   background-color: #30040f;
+      width: 140px;
  }
